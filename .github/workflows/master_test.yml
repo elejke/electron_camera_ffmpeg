@@ -15,6 +15,6 @@ jobs:
         with:
           node-version: 16
       - name: NPM install
-        run: npm install & npm install -g node-gyp
+        run: npm install & npm install -g node-gyp & npm install node-addon-api
       - name: Build addon
         run: cd src/native && node-gyp configure && node-gyp build
