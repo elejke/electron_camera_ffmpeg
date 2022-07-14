@@ -7,9 +7,6 @@
 #define NAPI_EXPERIMENTAL
 #include <node_api.h>
 
-#include "opencv2/core/core.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-using namespace cv;
 using namespace std;
 
 Video* m_video = NULL;
@@ -179,12 +176,9 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     }));
     m_video->setFrameCallBack(([&](AVFrame* frame, uint32_t bufSize) {
         if(frame != NULL) {
-            Mat bgra(frame->height, frame->width, CV_8UC4, (void*)frame->data[0]);
             //720 1280 3686400=4*720*1280
             // cout << frame->height << frame->width << bufSize << endl;
-            Mat rgba;
-            cvtColor(bgra, rgba, COLOR_BGRA2RGBA);
-
+            
             std::lock_guard<std::mutex>lk(threadCtx->m_data_lock);
             auto data = new DataItemFrame();
             data->type = DataItemType::DataFrame;
@@ -192,8 +186,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
             data->frame_buf_size = bufSize;
             data->width = frame->width;
             data->height = frame->height;
-            // memcpy(data->frame, (uint8_t*)frame->data[0], bufSize);
-            memcpy(data->frame, (uint8_t*)rgba.data, bufSize);
+            memcpy(data->frame, (uint8_t*)frame->data[0], bufSize);
             threadCtx->m_data_queue.push(data);
             threadCtx->m_data_cv.notify_one();
         } else {
