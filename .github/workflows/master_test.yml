@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2      
-      - name: Install ffmpeg:
+      - name: Install ffmpeg
         run: brew install ffmpeg
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v3
