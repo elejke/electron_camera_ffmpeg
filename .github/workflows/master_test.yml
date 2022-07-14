@@ -1,0 +1,22 @@
+name: master_test
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  master_test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2      
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+#      - name: Install node-gyp
+#        run: npm install node-gyp
+      - name: NPM install
+        run: npm install
+      - name: Build addon
+        run: cd src/native && node-gyp configure && node-gyp build
