@@ -18,7 +18,7 @@
         "<!@(node -p \"require('node-addon-api').include\")",
         'src/',
         '/usr/local/lib/',
-        '/usr/local/lib/'
+        '/usr/local/include/' # opencv include dir
       ],
       'link_settings': {
         'libraries': [
@@ -30,6 +30,8 @@
           '/usr/local/lib/libpostproc.56.3.100.dylib',
           '/usr/local/lib/libswresample.4.3.100.dylib',
           '/usr/local/lib/libswscale.6.4.100.dylib',
+          '/usr/local/Cellar/opencv/4.5.5_2/lib/libopencv_core.4.5.5.dylib',
+          '/usr/local/Cellar/opencv/4.5.5_2/lib/libopencv_imgproc.4.5.5.dylib'
         ],
         'library_dirs': [
           '/usr/local/lib/'

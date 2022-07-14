@@ -99,8 +99,8 @@ private:
 
     static constexpr const int DELAY_KILL_THREAD            = 50;
     static constexpr const int DELAY_DISPATCHER_THREAD      = 500;
-    static constexpr const int DEFAULT_HEIGHT               = 1280;
-    static constexpr const int DEFAULT_WIDTH                = 1024;
+    static constexpr const int DEFAULT_HEIGHT               = 720;
+    static constexpr const int DEFAULT_WIDTH                = 1280;
     static constexpr const char* const TAG  = "Video";
 };
 

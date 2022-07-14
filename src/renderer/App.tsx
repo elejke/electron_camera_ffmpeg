@@ -55,19 +55,7 @@ export default class Root extends React.Component {
     var frameWidth = this.state.frameWidth
     if(data == null || len == 0 || frameHeight == 0 || frameWidth == 0) return
 
-    var imageData = ctx.createImageData(frameWidth, frameHeight);
-    const data_img = imageData.data;
-    var pixels = new Uint8Array(data)
-    var i = 0; // cursor for RGBA buffer
-    var t = 0; // cursor for RGB buffer
-    var _len = data_img.length
-    for(; i < _len; i += 4) {
-      data_img[i]   = pixels[t+2]
-      data_img[i+1] = pixels[t+1]
-      data_img[i+2] = pixels[t]
-      data_img[i+3] = 255
-      t += 4;
-    }
+    var imageData = new ImageData(new Uint8ClampedArray(data), frameWidth, frameHeight);
     ctx.putImageData(imageData, 0, 0);
   }
 
@@ -106,9 +94,9 @@ export default class Root extends React.Component {
           { this.state.videoActive && 
             <Button className="button"
               onClick={()=> {
-                  window.electron.ipcRenderer.setDimention(1280, 1024)
+                  window.electron.ipcRenderer.setDimention(1280, 720)
               }
-            }>use 1280x1024</Button>
+            }>use 1280x720</Button>
           }
         </Row>
 
